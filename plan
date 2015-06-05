@@ -1,0 +1,51 @@
+[tests]
+script.testcases.browser.BrowserTest.testVisitWebpage1000 = 1
+script.testcases.browser.BrowserTest.testSwitchThumbs = 1
+script.testcases.browser.BrowserTest.testSwitchView = 1
+
+script.testcases.calander.CalanderTest.testCreatEvent = 1
+script.testcases.calander.CalanderTest.testDelEvent = 1
+script.testcases.calander.CalanderTest.testSwitchView = 1
+
+script.testcases.calculator.CalculatorTest.testCalculatorClickAndRotated = 1
+
+script.testcases.email.EmailTest.testSendEmail = 1
+script.testcases.email.EmailTest.testReadEmail = 1
+
+script.testcases.gallery.GalleryTest.testCheckPics = 1
+script.testcases.gallery.GalleryTest.testPlayVideo = 1
+
+script.testcases.launcher.LauncherTest.testSingleViewSwipe = 1
+script.testcases.launcher.LauncherTest.testLauncherMultiViewDrag = 1
+script.testcases.launcher.LauncherTest.testSwitch16View = 1
+script.testcases.launcher.LauncherTest.testSwitch64View = 1
+script.testcases.launcher.LauncherTest.testSwitchLanguage = 1
+script.testcases.launcher.LauncherTest.testSwitchTheme = 1
+
+script.testcases.message.MessageTest.testMessageAttachCamera = 1
+
+script.testcases.music.MusicTest.testMusicContraller = 1
+script.testcases.music.MusicTest.testSwitchView = 1
+
+script.testcases.note.NoteTest.testSharePicToNote = 1
+script.testcases.note.NoteTest.testSaveNoteAsPic = 1
+script.testcases.note.NoteTest.testShareNoteToWeibo = 1
+
+script.testcases.setting.SettingTest.testTurnOnOffWifi = 1
+script.testcases.setting.SettingTest.testTurnOnOffBT = 1
+
+script.testcases.telephony.TelephonyTest.testCreate1000Contact = 1
+
+script.testcases.camera.CameraTest.testTake2000Pictures = 1
+script.testcases.camera.CameraTest.testRecordLongTimeVideo = 1
+script.testcases.camera.CameraTest.testRecord200Video = 1
+
+script.testcases.clock.ClockTest.testSwitchView = 1
+
+script.testcases.recorder.RecorderTest.testRecord200Audio = 1
+script.testcases.recorder.RecorderTest.testRecord30minAudio = 1
+
+script.testcases.weather.WeatherTest.testAdd20City = 1
+script.testcases.weather.WeatherTest.testDel20City = 1
+
+script.testcases.appstore.AppstoreTest.testSwitchView = 1

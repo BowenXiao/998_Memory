@@ -1,0 +1,73 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-  
+import unittest
+from uiautomatorplug.android import device as d
+import commands
+
+APP_LIST = ['com.smartisanos.appstore/.AppStoreActivity','com.android.mms/.ui.ConversationList','com.smartisanos.music/.activities.MusicMain','com.android.browser/.BrowserActivity']
+APP_LIST = ['com.smartisanos.appstore/.AppStoreActivity','com.android.mms/.ui.ConversationList','com.smartisanos.music/.activities.MusicMain','com.android.contacts/.activities.DialtactsActivity']
+
+class BrowserTest(unittest.TestCase):
+	def setUp(self):
+		d.watcher("IGNORE_ANR").when(textContains='关闭').click(text='确定')
+		d.wakeup()
+		for i in xrange(2):
+			d.press('back')
+			d.sleep(1)
+		d.press('home')
+		d.sleep(1)
+
+	def tearDown(self):
+		d.watchers.remove("IGNORE_ANR")
+		# clear cache
+		commands.getoutput("adb shell am broadcast -a android.intent.action.MEDIA_MOUNTED -d file:///sdcard")
+		d.sleep(1)
+		self._clearCache()
+		for i in xrange(2):
+			d.press('back')
+			d.sleep(1)
+		d.press('home')
+		d.sleep(1)
+		d.press('recent')
+		d.sleep(1)
+		d(resourceId = 'com.smartisanos.systemui:id/clear_all_task').click.wait()
+
+	def testMultiTaskTelephony(self):
+		# make a phone call
+		commands.getoutput('adb shell am start -n com.android.contacts/.activities.DialtactsActivity')
+		d(resourceId = 'com.android.contacts:id/digits').set_text('10086')
+		d(resourceId = 'com.android.contacts:id/call_classic').click.wait()
+		d.sleep(1)
+		d.press('home')
+		# launch app
+		for i in APP_TEL_LIST:
+			commands.getoutput('adb shell am start -n %s'%i)
+			d.sleep(5)
+			d.press('home')
+			d.sleep(1)
+		d.swipe(540,1,540,500,10)
+		d.sleep(1)
+		if d(text = '当前通话').exists:
+			d(text = '当前通话').click.wait()
+			d(text = '结束').click.wait()
+		d.press('home')
+		assert d(packageName = 'com.smartisanos.launcher').exists,'Launcher is not show on the screen!'
+
+	def testMultiTaskBrowser(self):
+		# browse webpage
+		commands.getoutput('adb shell am start -n com.android.browser/.BrowserActivity')
+		# close all webpage
+		d(resourceId = 'com.android.browser:id/switch_btn').click.wait()
+		d(resourceId = 'com.android.browser:id/clearall').click.wait()
+		d(text = '关闭').click.wait()
+		d(resourceId = 'com.android.browser:id/url', text = '输入网址').set_text('wap.sohu.com')
+		d.press('enter')
+		d.sleep(1)
+		d.press('home')
+		for i in APP_BROWSER_LIST:
+			commands.getoutput('adb shell am start -n %s'%i)
+			d.sleep(5)
+			d.press('home')
+			d.sleep(1)
+		d.press('home')
+		assert d(packageName = 'com.smartisanos.launcher').exists,'Launcher is not show on the screen!'

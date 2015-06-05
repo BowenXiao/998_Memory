@@ -1,0 +1,59 @@
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+
+import unittest
+from uiautomatorplug.android import device as d
+
+class SystemAppTest(unittest.TestCase):
+    def setUp(self):
+        """
+        called before  each test method start.
+        """
+        d.watcher("IGNORE_ANR").when(textContains='关闭').click(text='确定')
+        d.wakeup()
+        for i in xrange(2): 
+            d.press('back')
+            d.sleep(1)
+        d.press('home')
+        d.sleep(1)
+        d.press('home')
+        d.sleep(1)
+        for i in xrange(3):
+            d.press('back')
+            d.sleep(1)
+
+    def tearDown(self):
+        """
+        called after each test method end or exception occur.
+        """
+        d.watchers.remove("IGNORE_ANR")
+        for i in xrange(2):
+            d.press('back')
+            d.sleep(1)
+        d.press('home')
+        d.sleep(1)
+        d.press('home')
+        d.sleep(1)
+
+    def  testLaunchAndExitVideo(self):
+        assert d(text="在线影视", packageName='com.xiaomi.tv.desktop').exists, 'Online Video icon not found!'
+        #d(text="在线影视", packageName='com.xiaomi.tv.desktop').sibling(className='android.view.View').click.wait()
+        d(resourceId="com.xiaomi.tv.desktop:id/bottom_layer").child(index=0).click.wait()
+        d.sleep(10)
+        if  d.find('menu_hot_highlight_focus3.png', threshold=0.05, timeout=30) :
+            pass
+        elif  d.find('menu_hot_highlight_nofocus3.png', threshold=0.05, timeout=30):
+            pass
+        elif  d.find('menu_hot_highlight_focus2.png', threshold=0.05, timeout=30):
+            pass
+        elif  d.find('menu_hot_highlight_nofocus2.png', threshold=0.05, timeout=30) :
+            pass
+        elif  d.find('menu_hot_highlight_focus.png', threshold=0.05, timeout=30):
+            pass
+        elif  d.find('menu_hot_highlight_nofocus.png', threshold=0.05, timeout=30) :
+            pass
+        else:
+            assert False, 'open online video failed!' 
+        d.press('back')
+        assert d(text="在线影视").wait.exists(timeout=15000), 'exit from online video failed!'
+
