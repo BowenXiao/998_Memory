@@ -7,10 +7,6 @@ import string
 import random
 import util as u
 
-ACCOUNT = 'stabilitymailpost@smartisan.com'
-PASSWORD = 'Smartisantest011'
-SEND_TO = 'stabilitymailget@smartisan.com'
-#SEND_TO = 'smartisanauto@hotmail.com'
 SUBJECT = 'Test Send Email'
 ATT_SUBJECT = 'Send With Attachment'
 NOATT_SUBJECT = 'Send Without Attachment'
